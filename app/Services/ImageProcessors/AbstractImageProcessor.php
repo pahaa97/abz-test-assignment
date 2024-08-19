@@ -12,7 +12,7 @@ abstract class AbstractImageProcessor implements ImageCropperInterface, ImageOpt
         protected string $imagePath,
     ) {}
 
-    public function crop(int $width, int $height, int $x, int $y): TinyPngImageProcessor
+    public function crop(int $width, int $height, int $x, int $y): self
     {
         list($width, $height) = getimagesize($this->imagePath);
 
