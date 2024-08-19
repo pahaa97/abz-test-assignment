@@ -1,6 +1,7 @@
 <template>
     <v-main>
         <v-container>
+            <h1 class="text-center pa-5">Test Assignment - Users Database</h1>
             <AddUserForm />
             <UsersTable />
         </v-container>
@@ -16,10 +17,3 @@ export default {
     components: { AddUserForm, UsersTable },
 };
 </script>
-
-<style>
-    .v-main {
-        padding-top: 70px;
-        padding-bottom: 70px;
-    }
-</style>
