@@ -21,7 +21,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DWD_fGc8.js",
+    "file": "assets/app-CRknf57u.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -39,7 +39,7 @@
     ]
   },
   "resources/js/components/Home.vue": {
-    "file": "assets/Home-DTNjzVlk.js",
+    "file": "assets/Home-LvpdNTnw.js",
     "name": "Home",
     "src": "resources/js/components/Home.vue",
     "isDynamicEntry": true,
@@ -47,7 +47,7 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Home-DQhkFRcg.css"
+      "assets/Home-Qn_1BLbt.css"
     ]
   }
 }
