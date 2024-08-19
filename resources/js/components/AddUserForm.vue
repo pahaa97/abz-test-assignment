@@ -132,7 +132,7 @@ export default {
         },
         clear() {
             for (let key in this.formData) {
-                this.formData[key] = null;
+                this.formData[key] = '';
             }
             this.errors = [];
             this.imagePreview = null;
