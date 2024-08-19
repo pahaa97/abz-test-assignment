@@ -7,7 +7,7 @@ class TinyPngImageProcessor extends AbstractImageProcessor
     public function __construct(string $imagePath)
     {
         parent::__construct($imagePath);
-        \Tinify\setKey("vTzQD4ztJNMc2GNVJXLqkfff7mZhlwyQ");
+        \Tinify\setKey(config('tinypng.api_key'));
     }
 
     public function optimize(): TinyPngImageProcessor
