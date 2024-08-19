@@ -8,10 +8,24 @@
             hide-default-footer
             @update:options="loadItems"
         >
-            <template v-slot:item.photo="{ item }">
-                <v-avatar size="36">
-                    <v-img :src="item.photo" />
-                </v-avatar>
+            <template v-slot:body="{ items }">
+                <tr
+                    v-for="item in items"
+                    :key="item.id"
+                    @click="showUserDetails(item.id)"
+                    style="cursor: pointer;"
+                >
+                    <td>{{ item.id }}</td>
+                    <td>
+                        <v-avatar size="36">
+                            <v-img :src="item.photo" />
+                        </v-avatar>
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.position }}</td>
+                </tr>
             </template>
         </v-data-table-server>
 
@@ -23,16 +37,35 @@
         >
             Show More
         </v-btn>
+
+        <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+                <v-card-title class="d-flex justify-space-between align-center">
+                    <span>{{ selectedUser.name }}</span>
+                    <v-btn icon @click="dialog = false">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-card-title>
+                <v-card-subtitle class="text-center">{{ selectedUser.position }}</v-card-subtitle>
+                <v-card-text class="text-center">
+                    <v-avatar size="72" class="mx-auto mb-4">
+                        <v-img :src="selectedUser.photo" />
+                    </v-avatar>
+                    <div>Email: {{ selectedUser.email }}</div>
+                    <div>Phone: {{ selectedUser.phone }}</div>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
 <script>
-import {EventBus} from "../event-bus.js";
+import { EventBus } from "../event-bus.js";
 
 export default {
     data() {
         return {
-            perPage: 10,
+            perPage: 6,
             users: [],
             meta: {},
             loading: false,
@@ -45,6 +78,8 @@ export default {
                 { title: 'Phone', key: 'phone' },
                 { title: 'Position', key: 'position' },
             ],
+            dialog: false,
+            selectedUser: {},
         };
     },
     created() {
@@ -86,16 +121,37 @@ export default {
                 .finally(() => {
                     this.loading = false;
                 });
+        },
+        showUserDetails(userId) {
+            this.$axios.get(`/api/users/${userId}`)
+                .then(response => {
+                    this.selectedUser = response.data.user;
+                    this.dialog = true;
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         }
     }
 };
 </script>
 
-<style>
-    .v-data-table-server {
-        margin-top: 20px;
-    }
-    .v-btn {
-        margin-top: 50px;
-    }
+<style scoped>
+.v-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>
